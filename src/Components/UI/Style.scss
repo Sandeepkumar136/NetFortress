@@ -6,11 +6,6 @@
   font-family: "Open Sans", serif;
 }
 
-body, html {
-  height: 100%;
-  overflow: visible;
-}
-
 .nav {
   width: 100%;
   background: rgba(255, 252, 252, 0.22);
@@ -18,12 +13,6 @@ body, html {
   backdrop-filter: blur(4.7px);
   -webkit-backdrop-filter: blur(4.7px);
   transition: all 0.3s ease-in-out;
-}
-
-.nav.scrolled {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
 .nav-inner {
@@ -51,9 +40,120 @@ body, html {
   font-size: 1.7rem;
   cursor: pointer;
 }
-
-.content {
+.nav-item-t {
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  background-color: #f9f8f8;
+  overflow-y: auto;
+  transition: 0.5s all ease-in-out;
+  -webkit-transition: 0.5s all ease-in-out;
+  -moz-transition: 0.5s all ease-in-out;
+  -ms-transition: 0.5s all ease-in-out;
+  -o-transition: 0.5s all ease-in-out;
+  transform: translateX(110%);
+  -webkit-transform: translateX(110%);
+  -moz-transform: translateX(110%);
+  -ms-transform: translateX(110%);
+  -o-transform: translateX(110%);
+}
+.sidebar.open {
+  transform: translateX(0);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+}
+.sidebar-logo-contain {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+}
+.logo-sidebar {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  visibility: hidden;
+}
+.toggle-sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.sidebar-list {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  list-style-type: none;
+  padding: 2rem 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.sidebar-item {
+  display: flex;
+  justify-content: start;
+  align-items: center;
   width: 100%;
-  height: 200vh;
-  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  background-color: #eeeeee;
+  -o-border-radius: 5px;
+  cursor: pointer;
+  gap: 2rem;
+}
+
+.s-i-l {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  color: #008cff;
+}
+.s-t-l {
+  font-size: 1rem;
+  font-weight: 500;
+}
+@media only screen and (max-width: 768px) {
+  .nav-item {
+    display: none;
+  }
+  .logo {
+    font-size: 1.2rem;
+  }
+  .logo-sidebar{
+    font-size: 1.2rem;
+  }
+  .nav-inner {
+    padding: 1rem 1.5rem;
+  }
+  .logo-sidebar {
+    visibility: visible;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar-item{
+    gap: 1rem;
+  }
+  .s-i-l{
+    font-size: 1.5rem;
+  }
+  .s-t-l{
+    font-size: 0.8rem;
+  }
 }
