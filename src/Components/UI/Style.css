@@ -238,17 +238,129 @@
   .n-container {
     gap: 0.5rem;
     width: 100%;
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
   }
   .news-card-contain {
     width: 100%;
     height: -moz-fit-content;
     height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .n-overlay-cont {
     padding-bottom: 2rem;
+  }
+}
+#dialog-search-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #0044ff;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dialog-box {
+  width: 900px;
+  height: 400px;
+  overflow: hidden;
+  border: 2px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.625);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.5px);
+  -webkit-backdrop-filter: blur(11.5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-form input {
+  border: none;
+  background-color: #a200ff;
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+  padding: 10px 2rem;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.search-form input::-moz-placeholder {
+  color: #fff;
+}
+
+.search-form input::placeholder {
+  color: #fff;
+}
+
+.search-form button {
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: #a200ff;
+}
+
+#dialog-header img {
+  width: 300px;
+  height: 300px;
+}
+
+@media only screen and (max-width: 950px) {
+  #dialog-content {
+    flex-direction: column;
+  }
+  #dialog-box {
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 2rem;
+    margin: 2rem;
+  }
+  #dialog-header img {
+    width: 150px;
+    height: 150px;
+  }
+  .search-form {
+    gap: 0.5rem;
+  }
+  .search-form input {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }/*# sourceMappingURL=Style.css.map */

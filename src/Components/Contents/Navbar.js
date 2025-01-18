@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useSearchDialog } from "../Contexts/DialogOneContext";
 
 const Navbar = () => {
   // States
   const [isSidebar, setIsSidebar] = useState(false);
+  const {openDialog} = useSearchDialog();
 
   // Functions
   const HandleNavigations = () => {
@@ -19,7 +21,7 @@ const Navbar = () => {
               <li className="nav-item">
                 <i className="bx bx-category-alt" aria-label="Categories"></i>
               </li>
-              <li className="nav-item">
+              <li onClick={openDialog} className="nav-item">
                 <i className="bx bx-search" aria-label="Search"></i>
               </li>
               <li className="nav-item">
@@ -54,7 +56,7 @@ const Navbar = () => {
             </span>
             <span className="s-t-l">Profile</span>
           </li>
-          <li className="sidebar-item">
+          <li onClick={()=> {openDialog(); HandleNavigations();}} className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-search"></i>
             </span>
