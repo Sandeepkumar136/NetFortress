@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { animate, stagger } from "@motionone/dom";
-import Spinner from "../Log/Spinner";
+import Spinner from "../Utils/Spinner";
 
 const CyberSecurity = () => {
   const [news, setNews] = useState([]);

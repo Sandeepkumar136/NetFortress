@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSearchDialog } from "../Contexts/DialogOneContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // States
@@ -16,7 +17,7 @@ const Navbar = () => {
       <header>
         <nav className="nav">
           <div className="nav-inner">
-            <h4 className="logo">NetFortress.Co</h4>
+            <Link to="/" className="logo">NetFortress.Co</Link>
             <ul className="nav-list">
               <li className="nav-item">
                 <i className="bx bx-category-alt" aria-label="Categories"></i>
@@ -40,7 +41,7 @@ const Navbar = () => {
 
       <aside className={`sidebar ${isSidebar ? "open" : "close"}`}>
         <div className="sidebar-logo-contain">
-          <h4 className="logo-sidebar">NetFortress.Co</h4>
+          <Link to="/" className="logo-sidebar">NetFortress.Co</Link>
           <button
             onClick={HandleNavigations}
             className="toggle-sidebar"
@@ -68,36 +69,36 @@ const Navbar = () => {
             </span>
             <span className="s-t-l">Saved</span>
           </li>
-          <li className="sidebar-item">
+          <Link to="/" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-news"></i>
             </span>
             <span className="s-t-l">Cybersecurity News</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/ipaddress" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-map"></i>
             </span>
             <span className="s-t-l">IP Address Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/network" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-plug"></i>
             </span>
             <span className="s-t-l">Network and Port Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/thread" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-shield-alt-2"></i>
             </span>
             <span className="s-t-l">Threat Intelligence Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-globe"></i>
             </span>
             <span className="s-t-l">Password Security Tools</span>
-          </li>
+          </Link>
           <li className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-dots-horizontal-rounded"></i>
