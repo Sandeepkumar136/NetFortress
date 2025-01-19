@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion'; // Import motion
 import { useSearchDialog } from '../Contexts/DialogOneContext';
 import images from '../Assets/ImageExporter';
+import { useNavigate } from 'react-router-dom';
 
-const SearchDialogue = () => {
+const SearchDialogue = ({setSearchQuery}) => {
     const { isOpen, closeDialog } = useSearchDialog();
+    const navigate = useNavigate();
+    const [inputValue, setInputValue] = useState('');
 
     const handleOutsideClick = (e) => {
         if (e.target.id === 'dialog-search-overlay') {
@@ -23,6 +26,16 @@ const SearchDialogue = () => {
         visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
     };
 
+    const handleInputChange = (e)=>{
+        setInputValue(e.target.value);
+    }
+
+    const handleFromSubmit = (e) =>{
+        e.preventDefault();
+        setSearchQuery(inputValue.toLowerCase());
+        closeDialog();
+        navigate('/search');
+    }
     return (
         isOpen && (
             <motion.div 
@@ -41,12 +54,12 @@ const SearchDialogue = () => {
                     exit="hidden"
                 >
                     <div id="dialog-content">
-                        <form className="search-form">
+                        <form className="search-form" onSubmit={handleFromSubmit}>
                             <input
                                 type="text"
                                 placeholder="Search..."
                             />
-                            <button type="submit"><i className='bx bx-search'></i></button>
+                            <button onClick={handleInputChange} type="submit"><i className='bx bx-search'></i></button>
                         </form>
                         <div id="dialog-header">
                             <img src={images.search_image} alt="searchbar-img" />
