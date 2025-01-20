@@ -93,42 +93,42 @@ const Navbar = () => {
             </span>
             <span className="s-t-l">Threat Intelligence Tools</span>
           </Link>
-          <Link to="/" className="sidebar-item">
+          <Link to="/password" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-globe"></i>
             </span>
             <span className="s-t-l">Password Security Tools</span>
           </Link>
-          <li className="sidebar-item">
+          <Link to="/domain" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-dots-horizontal-rounded"></i>
             </span>
             <span className="s-t-l">Domain Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/datalog" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-bar-chart-alt-2"></i>
             </span>
             <span className="s-t-l">Data and Log Analysis Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/vulnebrity" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-bug"></i>
             </span>
             <span className="s-t-l">Vulnerability Scanning Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/encdec" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-lock"></i>
             </span>
             <span className="s-t-l">Encryption and Decryption Tools</span>
-          </li>
-          <li className="sidebar-item">
+          </Link>
+          <Link to="/reports" className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-bell"></i>
             </span>
             <span className="s-t-l">Reporting and Alerts</span>
-          </li>
+          </Link>
           <li className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-cog"></i>

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SearchDialogue = ({setSearchQuery}) => {
     const { isOpen, closeDialog } = useSearchDialog();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
 
     const handleOutsideClick = (e) => {
@@ -32,9 +32,9 @@ const SearchDialogue = ({setSearchQuery}) => {
 
     const handleFromSubmit = (e) =>{
         e.preventDefault();
-        setSearchQuery(inputValue.toLowerCase());
+        setSearchQuery(inputValue);
         closeDialog();
-        // navigate('/search');
+        navigate('/search');
     }
     return (
         isOpen && (

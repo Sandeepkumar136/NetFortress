@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../src/Components/UI/Style.css'
 import Navbar from './Components/Contents/Navbar';
 import CyberSecurity from './Components/Pages/CyberSecurity';
 import { SearchDialogProvider } from './Components/Contexts/DialogOneContext';
 import SearchDialogue from './Components/Dialog/SearchDialogue';
-import {BrowserRouter as Route, Router, Routes } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DataLog from './Components/Pages/DataLog';
 import Domain from './Components/Pages/Domain';
 import EncDecTool from './Components/Pages/EncDecTool';
@@ -13,15 +13,19 @@ import NetworksTool from './Components/Pages/NetworksTool';
 import Reports from './Components/Pages/Reports';
 import ThreadIntel from './Components/Pages/ThreadIntel';
 import Vulnebrity from './Components/Pages/Vulnebrity';
+import PasswordSec from './Components/Pages/PasswordSec';
+import SearchResult from './Components/Contents/SearchResult';
 
 const App = () => {
+  const [searchQuery, setSearchQuery] = useState('');
   return (
     <Router>
       <SearchDialogProvider>
-      <SearchDialogue/>
+      <SearchDialogue setSearchQuery={setSearchQuery}/>
       <Navbar/>
       <Routes>
       <Route path='/' element={<CyberSecurity/>}/>
+      <Route path='/search' element={<SearchResult/>}/>
       <Route path='/datalog' element={<DataLog/>}/>
       <Route path='/domain' element={<Domain/>}/>
       <Route path='/encdec' element={<EncDecTool/>}/>
@@ -30,6 +34,7 @@ const App = () => {
       <Route path='/reports' element={<Reports/>}/>
       <Route path='/thread' element={<ThreadIntel/>}/>
       <Route path='/vulnebrity' element={<Vulnebrity/>}/>
+      <Route path='/password' element={<PasswordSec/>}/>
       </Routes>
       </SearchDialogProvider>
     </Router>
