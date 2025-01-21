@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useSearchDialog } from "../Contexts/DialogOneContext";
 import { Link } from "react-router-dom";
+import { useProfileDialog } from "../Contexts/DialogTwoContext";
 
 const Navbar = () => {
   // States
   const [isSidebar, setIsSidebar] = useState(false);
   const {openDialog} = useSearchDialog();
+  const {openPdialog} = useProfileDialog();
 
   // Functions
   const HandleNavigations = () => {
@@ -25,7 +27,7 @@ const Navbar = () => {
               <li onClick={openDialog} className="nav-item">
                 <i className="bx bx-search" aria-label="Search"></i>
               </li>
-              <li className="nav-item">
+              <li onClick={openPdialog} className="nav-item">
                 <i className="bx bx-user" aria-label="User"></i>
               </li>
               <li
@@ -51,13 +53,13 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="sidebar-list">
-          <li className="sidebar-item">
+          <li onClick={()=>{openPdialog(); HandleNavigations();}} className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-user"></i>
             </span>
             <span className="s-t-l">Profile</span>
           </li>
-          <li onClick={()=> {openDialog(); HandleNavigations();}} className="sidebar-item">
+          <li onClick={()=>{openDialog(); HandleNavigations();}} className="sidebar-item">
             <span className="s-i-l">
               <i className="bx bx-search"></i>
             </span>
