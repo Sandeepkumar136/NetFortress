@@ -1,49 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useLogin } from "../Contexts/AuthContext";
+import { Link } from "react-router-dom";
+import images from "../Assets/ImageExporter";
 
-function Login({ setIsLoggedIn }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+const Login = () => {
+  const { login } = useLogin();
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    const user = existingUsers.find((user) => user.email === email && user.password === password);
-
-    if (user) {
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userEmail', email);
-      setIsLoggedIn(true);
-      navigate('/profile');
-    } else {
-      alert('Invalid email or password!');
-    }
+    login(formData);
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <form onSubmit={handleLogin}>
-        <label>Email: </label>
-        <input
+    <div className="login-container">
+      <div className="l-p-contain">
+        <img src={images.login} alt="login" />
+        <h1>login</h1>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <input className="l-inp"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
         />
-        <br />
-        <label>Password: </label>
-        <input
+        <input className="l-inp"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          value={formData.password}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          required
         />
-        <br />
-        <button type="submit">Log In</button>
+        <button className="l-btn" type="submit">Login</button>
+        <Link className="s-btn" to='/signup'>Signup</Link>
       </form>
     </div>
   );
-}
+};
 
 export default Login;

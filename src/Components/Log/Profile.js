@@ -1,24 +1,15 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { useLogin } from "../Contexts/AuthContext";
 
-function Profile({ setIsLoggedIn }) {
-  const navigate = useNavigate();
-  const userEmail = localStorage.getItem('userEmail');
-
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userEmail');
-    setIsLoggedIn(false);
-    navigate('/login');
-  };
+const Profile = () => {
+  const { user } = useLogin();
 
   return (
     <div>
-      <h2>Profile</h2>
-      <p>Welcome, {userEmail}!</p>
-      <button onClick={handleLogout}>Log Out</button>
+      <h1>Welcome, {user?.name}!</h1>
+      <p>Email: {user?.email}</p>
     </div>
   );
-}
+};
 
 export default Profile;

@@ -16,21 +16,21 @@ import Vulnebrity from './Components/Pages/Vulnebrity';
 import PasswordSec from './Components/Pages/PasswordSec';
 import SearchResult from './Components/Contents/SearchResult';
 import { ProfileDialogProvider } from './Components/Contexts/DialogTwoContext';
+import ProfileDialog from './Components/Dialog/ProfileDialogue';
+import { AuthProvider, useLogin } from './Components/Contexts/AuthContext';
 import Login from './Components/Log/Login';
 import Signup from './Components/Log/Signup';
 import Profile from './Components/Log/Profile';
-import ProfileDialog from './Components/Dialog/ProfileDialogue';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
-
-  const PrivateRoute = ({ children }) => {
-    return isLoggedIn ? children : <Navigate to="/login" />;
+  const PrivateRoute = ({children})=>{
+    const {user} = useLogin();
+    return user ? children : <Navigate to="/login" />
   };
-
   return (
     <Router>
+      <AuthProvider>
       <ProfileDialogProvider>
         <SearchDialogProvider>
           <Navbar />
@@ -38,10 +38,10 @@ const App = () => {
           <ProfileDialog />
           <Routes>
             <Route path="/" element={<CyberSecurity />} />
-            <Route path="/login" element={isLoggedIn ? <Navigate to="/profile" /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
-            <Route path="/signup" element={isLoggedIn ? <Navigate to="/profile" /> : <Signup />} />
-            <Route path="/profile" element={<PrivateRoute isLoggedIn={isLoggedIn} ><Profile setIsLoggedIn={setIsLoggedIn} /></PrivateRoute>} />
-            <Route path="/search" element={<SearchResult searchQuery={searchQuery} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<PrivateRoute><SearchResult searchQuery={searchQuery} /></PrivateRoute>} />
             <Route path="/datalog" element={<PrivateRoute><DataLog /></PrivateRoute>} />
             <Route path="/domain" element={<PrivateRoute><Domain /></PrivateRoute>} />
             <Route path="/encdec" element={<PrivateRoute><EncDecTool /></PrivateRoute>} />
@@ -54,6 +54,7 @@ const App = () => {
           </Routes>
         </SearchDialogProvider>
       </ProfileDialogProvider>
+      </AuthProvider>
     </Router>
   );
 };

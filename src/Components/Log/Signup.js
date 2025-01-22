@@ -1,67 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useLogin } from "../Contexts/AuthContext";
 
-function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate();
+const Signup = () => {
+  const { signup } = useLogin;
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
 
-  const handleSignup = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!email || !password || !confirmPassword) {
-      alert('All fields are required!');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    if (existingUsers.some((user) => user.email === email)) {
-      alert('User already exists. Please log in.');
-      navigate('/login');
-      return;
-    }
-
-    const newUser = { email, password };
-    localStorage.setItem('users', JSON.stringify([...existingUsers, newUser]));
-    alert('Signup successful! Please log in.');
-    navigate('/login');
+    signup(formData);
+    alert("Signup successful! Please log in.");
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
-        <label>Email: </label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Password: </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <label>Confirm Password: </label>
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h1>Signup</h1>
+      <input
+        type="text"
+        placeholder="Name"
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={formData.password}
+        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+        required
+      />
+      <button type="submit">Signup</button>
+    </form>
   );
-}
+};
 
 export default Signup;
