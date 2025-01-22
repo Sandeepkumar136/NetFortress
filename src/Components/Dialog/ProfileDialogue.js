@@ -14,7 +14,6 @@ const ProfileDialog = () => {
     isPopen && (
       <div id="dialog-profile-overlay" onClick={handleOutsideClick}>
         <div className="p-dialog-content">
-          <Profile />
         </div>
       </div>
     )
