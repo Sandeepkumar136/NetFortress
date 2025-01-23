@@ -24,36 +24,47 @@ import Profile from './Components/Log/Profile';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const PrivateRoute = ({children})=>{
-    const {user} = useLogin();
-    return user ? children : <Navigate to="/login" />
+
+  // PrivateRoute component to restrict access to authenticated users
+  const PrivateRoute = ({ children }) => {
+    const { user } = useLogin();
+    return user ? children : <Navigate to="/login" />;
   };
+
   return (
     <Router>
       <AuthProvider>
-      <ProfileDialogProvider>
-        <SearchDialogProvider>
-          <Navbar />
-          <SearchDialogue setSearchQuery={setSearchQuery} />
-          <ProfileDialog />
-          <Routes>
-            <Route path="/" element={<CyberSecurity />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/search" element={<PrivateRoute><SearchResult searchQuery={searchQuery} /></PrivateRoute>} />
-            <Route path="/datalog" element={<PrivateRoute><DataLog /></PrivateRoute>} />
-            <Route path="/domain" element={<PrivateRoute><Domain /></PrivateRoute>} />
-            <Route path="/encdec" element={<PrivateRoute><EncDecTool /></PrivateRoute>} />
-            <Route path="/ipaddress" element={<PrivateRoute><IPAddressTool /></PrivateRoute>} />
-            <Route path="/network" element={<PrivateRoute><NetworksTool /></PrivateRoute>} />
-            <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
-            <Route path="/thread" element={<PrivateRoute><ThreadIntel /></PrivateRoute>} />
-            <Route path="/vulnebrity" element={<PrivateRoute><Vulnebrity /></PrivateRoute>} />
-            <Route path="/password" element={<PrivateRoute><PasswordSec /></PrivateRoute>} />
-          </Routes>
-        </SearchDialogProvider>
-      </ProfileDialogProvider>
+        <ProfileDialogProvider>
+          <SearchDialogProvider>
+            <Navbar />
+            <SearchDialogue setSearchQuery={setSearchQuery} />
+            <ProfileDialog />
+            <Routes>
+              {/* Default and publicly accessible page */}
+              <Route path="/" element={<CyberSecurity />} />
+
+              {/* Auth-related routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+
+              {/* Private routes requiring login */}
+              <Route path="/search" element={<PrivateRoute><SearchResult searchQuery={searchQuery} /></PrivateRoute>} />
+              <Route path="/datalog" element={<PrivateRoute><DataLog /></PrivateRoute>} />
+              <Route path="/domain" element={<PrivateRoute><Domain /></PrivateRoute>} />
+              <Route path="/encdec" element={<PrivateRoute><EncDecTool /></PrivateRoute>} />
+              <Route path="/ipaddress" element={<PrivateRoute><IPAddressTool /></PrivateRoute>} />
+              <Route path="/network" element={<PrivateRoute><NetworksTool /></PrivateRoute>} />
+              <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
+              <Route path="/thread" element={<PrivateRoute><ThreadIntel /></PrivateRoute>} />
+              <Route path="/vulnebrity" element={<PrivateRoute><Vulnebrity /></PrivateRoute>} />
+              <Route path="/password" element={<PrivateRoute><PasswordSec /></PrivateRoute>} />
+
+              {/* Catch-all route to redirect unknown routes */}
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </SearchDialogProvider>
+        </ProfileDialogProvider>
       </AuthProvider>
     </Router>
   );

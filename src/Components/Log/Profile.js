@@ -1,24 +1,45 @@
-import React, { useContext } from "react";
-import { useLogin } from "../Contexts/AuthContext";
-import images from "../Assets/ImageExporter";
-import { motion } from "framer-motion"; // Import motion
+import React, { useEffect } from 'react';
+import { useProfileDialog } from '../Contexts/DialogTwoContext';
+import { useLogin } from '../Contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-const Profile = () => {
+const ProfileDialog = () => {
+  const { isPopen, closePdialog } = useProfileDialog();
   const { user, logout } = useLogin();
+  const navigate = useNavigate();
+
+  const handleOutsideClick = (e) => {
+    if (e.target.id === 'dialog-profile-overlay') closePdialog();
+  };
+
+  // Redirect to login page if the user is not logged in
+  useEffect(() => {
+    if (!user && isPopen) {
+      closePdialog();
+      navigate('/login');
+    }
+  }, [user, isPopen, navigate, closePdialog]);
+
+  if (!user || !isPopen) {
+    return null;
+  }
+
+  const handleLogout = () => {
+    logout();
+    closePdialog(); // Close the dialog when logging out
+    navigate('/login'); // Redirect to login after logout
+  };
 
   return (
-    <motion.div
-      className="profile-container"
-      initial={{ opacity: 0, y: 50 }} // Start from below (y: 50)
-      animate={{ opacity: 1, y: 0 }} // End at the normal position (y: 0)
-      transition={{ duration: 0.7 }} // Duration of the animation
-    >
-      <img className="p-img" src={images.profile} alt="profile" />
-      <h1 className="p-heading">{user?.name ? "Welcome" : ""} {user?.name}</h1>
-      <p className="p-text">{user?.email}</p>
-      <button className="p-btn" onClick={logout}>Logout</button>
-    </motion.div>
+    <div id="dialog-profile-overlay" onClick={handleOutsideClick}>
+      <div className="p-dialog-content">
+        <h1>Profile</h1>
+        <p><strong>Name:</strong> {user.name}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    </div>
   );
 };
 
-export default Profile;
+export default ProfileDialog;
