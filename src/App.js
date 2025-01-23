@@ -17,19 +17,15 @@ import PasswordSec from './Components/Pages/PasswordSec';
 import SearchResult from './Components/Contents/SearchResult';
 import { ProfileDialogProvider } from './Components/Contexts/DialogTwoContext';
 import ProfileDialog from './Components/Dialog/ProfileDialogue';
-import { AuthProvider, useLogin } from './Components/Contexts/AuthContext';
 import Login from './Components/Log/Login';
 import Signup from './Components/Log/Signup';
 import Profile from './Components/Log/Profile';
+import PrivateRoute from './Components/Log/PrivateRoute';
+import { AuthProvider } from './Components/Contexts/AuthContext';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // PrivateRoute component to restrict access to authenticated users
-  const PrivateRoute = ({ children }) => {
-    const { user } = useLogin();
-    return user ? children : <Navigate to="/login" />;
-  };
 
   return (
     <Router>

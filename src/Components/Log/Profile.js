@@ -1,45 +1,16 @@
-import React, { useEffect } from 'react';
-import { useProfileDialog } from '../Contexts/DialogTwoContext';
-import { useLogin } from '../Contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useLogin } from "../Contexts/AuthContext";
 
-const ProfileDialog = () => {
-  const { isPopen, closePdialog } = useProfileDialog();
+const Profile = () => {
   const { user, logout } = useLogin();
-  const navigate = useNavigate();
-
-  const handleOutsideClick = (e) => {
-    if (e.target.id === 'dialog-profile-overlay') closePdialog();
-  };
-
-  // Redirect to login page if the user is not logged in
-  useEffect(() => {
-    if (!user && isPopen) {
-      closePdialog();
-      navigate('/login');
-    }
-  }, [user, isPopen, navigate, closePdialog]);
-
-  if (!user || !isPopen) {
-    return null;
-  }
-
-  const handleLogout = () => {
-    logout();
-    closePdialog(); // Close the dialog when logging out
-    navigate('/login'); // Redirect to login after logout
-  };
 
   return (
-    <div id="dialog-profile-overlay" onClick={handleOutsideClick}>
-      <div className="p-dialog-content">
-        <h1>Profile</h1>
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+    <div className="profile-container">
+      <h1>Welcome, {user.name}</h1>
+      <p>Email: {user.email}</p>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };
 
-export default ProfileDialog;
+export default Profile;

@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react";
 import { useLogin } from "../Contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import images from "../Assets/ImageExporter";
 import { motion } from "framer-motion"; // Import motion
 
 const Login = () => {
   const { login } = useLogin();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login(formData);
+    navigate("/")
   };
 
   return (

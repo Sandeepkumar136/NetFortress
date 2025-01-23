@@ -1,52 +1,38 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { createContext, useState, useContext } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
-  // Load user from localStorage when the app starts
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (storedUser) setUser(storedUser);
-  }, []);
-
-  // Signup function
-  const signup = (userData) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(userData);
-    localStorage.setItem("users", JSON.stringify(users));
-  };
-
-  // Login function
-  const login = ({ email, password }) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password
-    );
-
-    if (foundUser) {
-      localStorage.setItem("currentUser", JSON.stringify(foundUser));
-      setUser(foundUser);
-      navigate("/profile");
+  const login = (formData) => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser && savedUser.email === formData.email && savedUser.password === formData.password) {
+      setUser(savedUser);
+      alert("Login successful!");
     } else {
-      alert("Invalid email or password");
+      alert("Invalid email or password.");
     }
   };
 
-  // Logout function
+  const signup = (formData) => {
+    localStorage.setItem("user", JSON.stringify(formData));
+    alert("Signup successful! Please log in.");
+  };
+
   const logout = () => {
-    localStorage.removeItem("currentUser");
     setUser(null);
-    navigate("/login");
+    alert("Logged out successfully!");
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-export const useLogin=() => useContext(AuthContext);
+
+export const useLogin = () => useContext(AuthContext);
