@@ -76,7 +76,7 @@ const SearchResult = ({ searchQuery }) => {
           }
         >
           <div className="n-overlay-cont">
-            <h3>{article.title || "No Title Available"}</h3>
+            <h3>{article.title?.slice(0, 100)+"..." || "No Title Available"}</h3>
             <p>
               <strong>Date:</strong> {article.seendate || "N/A"}
             </p>
